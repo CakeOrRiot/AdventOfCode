@@ -1,0 +1,38 @@
+from collections import Counter
+with open('../input.txt','rt') as f:
+    allergens_to_ingredients = dict()
+    all_ingrediesnts = Counter()
+    for line in f:
+        line = line.strip()
+        ingredients,allergens = line.split(' (')
+        allergens = allergens[len('contains '):].split(' ')
+        allergens[-1]=allergens[-1][:-1]
+        for i in range(len(allergens)):
+            if allergens[i][-1]==',':
+                allergens[i] = allergens[i][:-1]
+        ingredients = ingredients.split(' ')
+        for ingr in ingredients:
+            all_ingrediesnts[ingr]+=1
+        for allergen in allergens:
+            # print(allergens_to_ingredients)
+            if allergen in allergens_to_ingredients:
+                allergens_to_ingredients[allergen] = allergens_to_ingredients[allergen].intersection(set(ingredients))
+            else:
+                allergens_to_ingredients[allergen] = set(ingredients)
+    # print(allergens_to_ingredients)
+    # print(all_ingrediesnts)
+    safe_ingredients = set()
+    for ingredient in all_ingrediesnts:
+        is_safe = True
+        for allergen in allergens_to_ingredients:
+            if ingredient in allergens_to_ingredients[allergen]:
+                is_safe=False
+                break
+        if is_safe:
+            safe_ingredients.add(ingredient)
+    print(safe_ingredients)
+    res = 0
+    for safe_ingr in safe_ingredients:
+        res+=all_ingrediesnts[safe_ingr]
+
+    print(res)
