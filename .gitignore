@@ -1,0 +1,6 @@
+*.jar
+*.pdb
+*.exe
+target/
+.vscode/
+*.lock
