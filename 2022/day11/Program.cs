@@ -95,21 +95,14 @@ ulong Solve2()
         {
             foreach (var item in monkey.Items)
             {
-                try
+                var transformed = monkey.Transform(item);
+                if (monkey.Test(transformed))
                 {
-                    var transformed = monkey.Transform(item);
-                    if (monkey.Test(transformed))
-                    {
-                        monkeys[monkey.Pass.Item1].Items.Add(transformed);
-                    }
-                    else
-                    {
-                        monkeys[monkey.Pass.Item2].Items.Add(transformed);
-                    }
+                    monkeys[monkey.Pass.Item1].Items.Add(transformed);
                 }
-                catch (Exception e)
+                else
                 {
-                    Console.WriteLine(item);
+                    monkeys[monkey.Pass.Item2].Items.Add(transformed);
                 }
             }
 
