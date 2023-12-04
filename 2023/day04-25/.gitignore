@@ -1,14 +1,3 @@
-*.jar
-*.pdb
-*.exe
-target/
-.vscode/
-*.lock
-.idea/
-obj/
-bin/
-
-
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
