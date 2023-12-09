@@ -1,5 +1,5 @@
 fun main(args: Array<String>) {
-    val day = Day08()
+    val day = Day09()
     day.solve1()
     day.solve2()
 }
