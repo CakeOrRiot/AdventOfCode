@@ -17,7 +17,6 @@ class Day10 {
     fun solve2() {
         val grid = File("inputs/10.txt").inputStream().bufferedReader().lineSequence().map { it.toMutableList() }
             .toMutableList()
-
         var start = Pair(0, 0)
         grid.forEachIndexed { i, line -> val j = line.indexOf('S'); if (j != -1) start = Pair(i, j) else null }
         grid[start.first][start.second] = '|'
@@ -56,8 +55,7 @@ class Day10 {
                         }
                     }
                 } else {
-                    if (pos == Position.INSIDE)
-                        res++
+                    if (pos == Position.INSIDE) res++
                 }
             }
         }
@@ -68,7 +66,7 @@ class Day10 {
         INSIDE, TOP_BORDER, BOT_BORDER, OUTSIDE
     }
 
-    fun getNeighboursShape(grid: List<List<Char>>, pos: Pair<Int, Int>): List<Pair<Int, Int>> {
+    private fun getNeighboursShape(grid: List<List<Char>>, pos: Pair<Int, Int>): List<Pair<Int, Int>> {
         val neighbours = emptyList<Pair<Int, Int>>().toMutableList()
         val shape = grid[pos.first][pos.second]
         when (shape) {
@@ -106,7 +104,7 @@ class Day10 {
         return neighbours.filter { it.first >= 0 && it.second >= 0 && it.first < grid.size && it.second < grid[0].size }
     }
 
-    fun bfs(
+    private fun bfs(
         grid: List<List<Char>>,
         start: Pair<Int, Int>,
         getNeighbours: (List<List<Char>>, Pair<Int, Int>) -> List<Pair<Int, Int>>,
@@ -118,16 +116,12 @@ class Day10 {
         dist[start] = 0
         while (!q.isEmpty()) {
             val cur = q.poll()
-
             val neighbours = getNeighbours(grid, cur)
-
-
             for (next in neighbours) {
                 if (next == start || dist.containsKey(next) || skip.contains(next)) continue
                 dist[next] = dist.getValue(cur) + 1
                 q.add(next)
             }
-
         }
         return dist
     }
